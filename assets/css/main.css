@@ -242,8 +242,8 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
-  margin-right: 8px;
+  max-height: 75px; 
+  margin-right: 10px;
 }
 
 .header .logo h1 {
@@ -283,6 +283,10 @@ h6 {
 
   .header .navmenu {
     order: 3;
+  }
+
+  .header .logo img {
+    max-height: 50px; /* Adjust for smaller screens */
   }
 }
 
@@ -871,104 +875,137 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+/* Hero Section CSS */
+/* Hero Section */
+/* Ensure the container has a proper height */
+/* Hero Section */
 .hero {
-  width: 100%;
-  min-height: 70vh;
   position: relative;
-  padding: 120px 0 60px 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Carousel Wrapper */
+#heroCarousel {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Individual Carousel Slides */
+.carousel-item {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0; /* Start hidden */
+  transition: opacity 1s ease-in-out;
+}
+
+/* Show the active slide */
+.carousel-item.active {
+  opacity: 1;
+  display: block;
+}
+
+/* Dark Overlay for Readability */
+.carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* Text Content */
+.carousel-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 3;
+  width: 80%;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.hero h1 {
-  margin: 0;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 56px;
+/* Headings */
+.carousel-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
-.hero p {
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
-  margin: 5px 0 30px 0;
-  font-size: 20px;
-  font-weight: 400;
+.carousel-content p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  animation: fadeInUp 1.5s ease-in-out;
 }
 
-.hero .btn-get-started {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  font-family: var(--heading-font);
-  font-weight: 400;
-  font-size: 15px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 10px 28px 12px 28px;
-  border-radius: 50px;
-  transition: 0.5s;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 4;
 }
 
-.hero .btn-get-started:hover {
-  color: var(--contrast-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 15%);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Makes arrows visible on dark backgrounds */
 }
 
-.hero .btn-watch-video {
-  font-size: 16px;
-  transition: 0.5s;
-  margin-left: 25px;
-  color: var(--default-color);
-  font-weight: 600;
-}
-
-.hero .btn-watch-video i {
-  color: var(--accent-color);
-  font-size: 32px;
-  transition: 0.3s;
-  line-height: 0;
-  margin-right: 8px;
-}
-
-.hero .btn-watch-video:hover {
-  color: var(--accent-color);
-}
-
-.hero .btn-watch-video:hover i {
-  color: color-mix(in srgb, var(--accent-color), transparent 15%);
-}
-
-.hero .animated {
-  animation: up-down 2s ease-in-out infinite alternate-reverse both;
-}
-
-@media (max-width: 640px) {
-  .hero h1 {
-    font-size: 28px;
-    line-height: 36px;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .carousel-item {
+    height: 80vh;
   }
 
-  .hero p {
-    font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 30px;
+  .carousel-content {
+    width: 90%;
   }
 
-  .hero .btn-get-started,
-  .hero .btn-watch-video {
-    font-size: 13px;
+  .carousel-content h1 {
+    font-size: 2rem;
+  }
+
+  .carousel-content p {
+    font-size: 1rem;
   }
 }
 
-@keyframes up-down {
-  0% {
-    transform: translateY(10px);
-  }
-
-  100% {
-    transform: translateY(-10px);
-  }
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+/* Certifications Section */
+.certifications {
+  background: #f8f9fa;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.certifications img {
+  max-width: 100px;
+  margin: 10px;
+}
+
 
 /*--------------------------------------------------------------
 # Featured Services Section
@@ -1754,3 +1791,4 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
