@@ -996,13 +996,14 @@ section,
 /* Certificaton CSS */
 .certification-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 items per row */
-  gap: 30px 20px; /* Proper spacing between rows and columns */
+  grid-template-columns: repeat(6, 1fr); /* 6 items per row on large screens */
+  gap: 30px 20px; /* Proper spacing */
   justify-content: center;
   padding: 20px 0;
+  margin: 0 auto; /* Centering */
 }
 
-/* Ensures uniform alignment */
+/* Certification Item Styling */
 .certification-item {
   width: 150px;
   height: 150px;
@@ -1013,12 +1014,14 @@ section,
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  min-width: 80px;
+  min-height: 80px;
 }
 
 /* Hover Effect */
 .certification-item:hover {
-  transform: translateY(-5px); /* Slight lift effect */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Logo Styling */
@@ -1028,7 +1031,7 @@ section,
   border-radius: 50%;
 }
 
-/* Centered Layout */
+/* Larger Screens */
 @media (min-width: 1024px) {
   .certification-grid {
     max-width: 80%;
@@ -1042,28 +1045,44 @@ section,
   }
 }
 
+/* Tablet View */
 @media (max-width: 768px) {
   .certification-grid {
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     justify-content: center;
+  }
+
+  .certification-item {
+    width: 120px;
+    height: 120px;
+  }
+
+  .certification-item img {
+    max-width: 80%;
   }
 }
 
+/* Mobile View */
 @media (max-width: 480px) {
   .certification-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row for very small screens */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
   }
 
   .certification-item {
-    width: 80px; /* Adjust circle size */
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
 
   .certification-item img {
     max-width: 70%;
   }
 }
+
 
 
 
@@ -1336,8 +1355,28 @@ section,
 /*--------------------------------------------------------------
 # Industries Served Section
 --------------------------------------------------------------*/
+/* INDUSTRIES SERVED Section */
+.industry-heading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Description Below Heading */
+.industry-description {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
+
+/* Industry Item Styling */
 .industry-item {
-  background: #ffffff;
+  background: linear-gradient(to right, #bd38bf, #9410bc);
   padding: 20px;
   text-align: center;
   font-size: 22px;
@@ -1353,13 +1392,12 @@ section,
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border: 2px solid transparent; /* Initially no visible border */
-  background: linear-gradient(to right, #bd38bf, #9410bc);
+  border: 2px solid transparent;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle Inner Shadow for 3D Effect */
+/* 3D Inner Shadow */
 .industry-item::before {
   content: "";
   position: absolute;
@@ -1368,12 +1406,12 @@ section,
   z-index: -1;
 }
 
-/* **Enhanced Hover Effect** */
+/* Hover Effect */
 .industry-item:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   background: linear-gradient(135deg, #9410bc, #bd38bf);
-  border: 2px solid #5a003f; /* Highlight border */
+  border: 2px solid #5a003f;
 }
 
 /* Swiper Slide Styling */
@@ -1390,8 +1428,52 @@ section,
 
 /* Swiper Pagination */
 .swiper-pagination {
-  margin-top: 20px;
+  margin-top: 15px;
+  position: relative;
 }
+
+/* --- Responsive Fixes --- */
+
+/* Tablet View */
+@media (max-width: 768px) {
+  .industry-heading {
+    font-size: 28px;
+  }
+
+  .industry-description {
+    font-size: 16px;
+  }
+
+  .industry-item {
+    width: 280px;
+    height: 160px;
+    font-size: 20px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+  .industry-heading {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .industry-description {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .industry-item {
+    width: 250px;
+    height: 140px;
+    font-size: 18px;
+  }
+
+  .swiper-pagination {
+    margin-top: 10px;
+  }
+}
+
 
 
 
