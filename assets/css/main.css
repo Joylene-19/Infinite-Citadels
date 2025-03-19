@@ -1049,6 +1049,22 @@ section,
   }
 }
 
+@media (max-width: 480px) {
+  .certification-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row for very small screens */
+    gap: 10px;
+  }
+
+  .certification-item {
+    width: 80px; /* Adjust circle size */
+    height: 80px;
+  }
+
+  .certification-item img {
+    max-width: 70%;
+  }
+}
+
 
 
 
