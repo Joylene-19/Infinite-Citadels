@@ -1032,7 +1032,7 @@ section,
 }
 
 /* Larger Screens */
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   .certification-grid {
     max-width: 80%;
     margin: 0 auto;
@@ -1042,6 +1042,16 @@ section,
 @media (max-width: 1024px) {
   .certification-grid {
     max-width: 90%;
+  }
+} */
+
+@media (min-width: 1024px) {
+  .certification-grid {
+    max-width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -1090,7 +1100,7 @@ section,
 
 
 /*--------------------------------------------------------------
-# Featured Services Section
+# Core Services Section
 --------------------------------------------------------------*/
 .featured-services {
   --surface-color: color-mix(in srgb, var(--default-color), transparent 96%);
@@ -1138,6 +1148,7 @@ section,
 .featured-services .service-item:hover h4 a {
   color: var(--accent-color);
 }
+
 
 /*--------------------------------------------------------------
 # About Section
@@ -1209,7 +1220,7 @@ section,
   background-color: var(--surface-color);
   text-align: center;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
-  padding: 80px 20px;
+  padding: 20px 10px;
   transition: border ease-in-out 0.3s;
   height: 100%;
 }
