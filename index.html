@@ -57,7 +57,7 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="assets/img/Infinite-Citadels-logo.png" alt="">
-        <!-- <h1 class="sitename">Infinite Citadels</h1> -->
+        <h6 class="sitename" style="color: #9410bc;">Infinite Citadels</h6>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -78,39 +78,468 @@
   </header>
 
   <main class="main">
-    <!-- Hero Section with Background Images -->
-    <section id="hero" class="hero">
-      <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-              <div class="carousel-item active" style="background-image: url('assets/img/Slide.jpg');">
-                  <div class="carousel-content">
-                      <h1>Infinite Citadels</h1>
-                      <p>Innovating Security, Ensuring Infinite Trust</p>
-                  </div>
-              </div>
-              <div class="carousel-item" style="background-image: url('assets/img/Slide2.jpg');">
-                  <div class="carousel-content">
-                      <h1>Empowered by Technology</h1>
-                      <p>Redefining Security with Advanced AI Solutions</p>
-                  </div>
-              </div>
-              <div class="carousel-item" style="background-image: url('assets/img/Slide.jpg');">
-                  <div class="carousel-content">
-                      <h1>Your Data, Our Priority</h1>
-                      <p>Protecting Your Digital World with Cutting-Edge Cybersecurity</p>
-                  </div>
-              </div>
-          </div>
-          <!-- Carousel Controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon"></span>
-          </button>
+    <section id="Industries-Served" class="industries-section">
+      <style>
+           /* General Styles */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: white;
+  }
+  
+  .ind-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Industries Served Section Styles */
+  .industries-section {
+    position: relative;
+    padding: 80px 0;
+    background-color: black;
+    overflow: hidden;
+  }
+  
+  .section-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  .section-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 2;
+  }
+  
+  /* Section background overlay */
+  .section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  /* Section Title */
+  .ind-section-title {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .ind-section-title span {
+    display: block;
+    color: #bd38bf;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .ind-section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: white;
+  }
+  
+  .ind-section-title p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: white;
+    font-size: 18px;
+  }
+  
+  /* Industry Item Styling */
+  .industry-item {
+    background: linear-gradient(to right, #bd38bf, #9410bc);
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    height: 220px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Industry Background Image */
+  .industry-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: transform 0.5s ease;
+  }
+  
+  .industry-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+  }
+  
+  /* Industry image overlay */
+  .industry-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+  }
+  
+  /* Industry Content */
+  .industry-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .industry-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    color: white;
+  }
+  
+  .industry-content h3 {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* 3D Inner Shadow */
+  .industry-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 10%, transparent 80%);
+    z-index: 1;
+  }
+  
+  /* Hover Effect */
+  .industry-item:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #9410bc, #bd38bf);
+    border: 2px solid #5a003f;
+  }
+  
+  .industry-item:hover .industry-background {
+    transform: scale(1.1);
+  }
+  
+  /* Swiper Slide Styling */
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 10px;
+  }
+  
+  /* Swiper Pagination */
+  .swiper-pagination {
+    position: relative;
+    bottom: 0;
+    margin-top: 20px;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #bd38bf;
+    opacity: 0.5;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #9410bc;
+    opacity: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .ind-section-title h2 {
+      font-size: 32px;
+    }
+    
+    .ind-section-title p {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .industries-section {
+      padding: 60px 0;
+    }
+    
+    .ind-section-title h2 {
+      font-size: 28px;
+    }
+    
+    .industry-item {
+      height: 180px;
+    }
+    
+    .industry-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .industry-content h3 {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .industries-section {
+      padding: 40px 0;
+    }
+    
+    .ind-section-title span {
+      font-size: 16px;
+    }
+    
+    .ind-section-title h2 {
+      font-size: 24px;
+    }
+    
+    .ind-section-title p {
+      font-size: 14px;
+    }
+    
+    .industry-item {
+      height: 160px;
+    }
+    
+    .industry-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 8px;
+    }
+    
+    .industry-content h3 {
+      font-size: 16px;
+    }
+  }
+      </style>
+      <!-- Background image for the entire section -->
+      <div class="section-background">
+        <img src="assets/img/industry img/bg-img.webp" alt="Industries background">
+        <div class="section-overlay"></div>
       </div>
-  </section>
-    <!-- Section Title -->
+  
+      <!-- Section Title -->
+      <div class="ind-container ind-section-title" data-aos="fade-up">
+        <h2>Industries Served</h2>
+        <p>We provide services across multiple industries, ensuring excellence and innovation.</p>
+      </div>
+  
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper industries-swiper">
+          <div class="swiper-wrapper">
+            <!-- Fintech Companies -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/fintech.jpeg" alt="Fintech Companies">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Fintech Companies</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Banks -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/bank.webp" alt="Banks">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Banks</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Government -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/govern-img.jpg" alt="Government">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Government</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Telecom Companies -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/telecom-img.jpg" alt="Telecom Companies">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Telecom Companies</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Education Institutions -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/edu-img.webp" alt="Education Institutions">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Education Institutions</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Insurance -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/insurance-img.png" alt="Insurance">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Insurance</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Medical -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/medical-img.jpg" alt="Medical">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Medical</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Real Estate -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/real-estate-img.webp" alt="Real Estate">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Real Estate</h3>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Trading -->
+            <div class="swiper-slide">
+              <div class="industry-item">
+                <div class="industry-background">
+                  <img src="assets/img/industry img/trading-img.jpg" alt="Trading">
+                  <div class="industry-overlay"></div>
+                </div>
+                <div class="industry-content">
+                  <h3>Trading</h3>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      // Initialize Swiper
+document.addEventListener('DOMContentLoaded', function() {
+  const swiper = new Swiper('.industries-swiper', {
+    loop: true,
+    speed: 600,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 'auto',
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 20
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 30
+      },
+      // when window width is >= 1024px
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 40
+      }
+    }
+  });
+});
+
+// Optional: Add AOS (Animate On Scroll) initialization if you're using it
+// Uncomment if you have AOS included in your project
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  AOS.init({
+    duration: 1000,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false
+  });
+});
+*/
+    </script>
+    </section>
+    <!-- service Section Title -->
     <div class="container section-title" data-aos="fade-up" id="Our-Core-Services">
       <span>Our Core Service</span>
       <h2>Our Core Service</h2>
@@ -681,96 +1110,6 @@
       </div>
   </div>
 </section><!-- /Red Team Section -->
-
-
-
-    <!-- Testimonials Section -->
-    <section id="Industries-Served" class="industries section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <span>Industries Served</span>
-        <h2>Industries Served</h2>
-        <p>We provide services across multiple industries, ensuring excellence and innovation.</p>
-      </div>
-    
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-        <div class="swiper init-swiper" data-speed="600" data-delay="5000" data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 20
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-    
-            <!-- Industry Boxes -->
-            <div class="swiper-slide">
-              <div class="industry-item">Fintech Companies</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Banks</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Government</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Telecom Companies</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Education Institutions</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Insurance</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Medical</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Real Estate</div>
-            </div>
-    
-            <div class="swiper-slide">
-              <div class="industry-item">Trading</div>
-            </div>
-    
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-    
-      </div>
-    
-    </section> 
-    <!-- end Industries Served Section -->
-    
-
     <!-- Our Certifications Section -->
 <section id="our-team-Credentials" class="certifications section light-background">
   <div class="container section-title" data-aos="fade-up">
