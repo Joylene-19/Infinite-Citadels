@@ -595,519 +595,1549 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
     </section><!-- /Stats Section -->
-    <!-- service Section Title -->
-    <div class="container section-title" data-aos="fade-up" id="Our-Core-Services">
-      <span>Our Core Service</span>
-      <h2>Our Core Service</h2>
+   <section id="Our-Core-Services">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+        }
+
+        /* Enhanced Desktop Service Layout */
+        .services-radial {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            overflow: visible;
+        }
+
+        /* Hexagon Background */
+        .hexagon-bg {
+            position: absolute;
+            width: 400px; /* Reduced size */
+            height: 346px; /* Hexagon height = width * 0.866 */
+            background-color: rgba(148, 16, 188, 0.08);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            z-index: 1;
+        }
+
+        /* Center Logo */
+        .center-logo-container {
+            position: absolute;
+            z-index: 10;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #440955;
+            box-shadow: 0 0 30px rgba(148, 16, 188, 0.5);
+        }
+
+        .center-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Service Category Nodes */
+        .service-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #9410bc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.3);
+        }
+
+        .service-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(148, 16, 188, 0.6);
+        }
+
+        .service-node-icon {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .service-node-label {
+            position: absolute;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #440955;
+            transition: all 0.3s ease;
+        }
+
+        /* Hexagonal Positioning - Closer to center */
+        .service-node.governance {
+            top: 20%;
+            right: 30%;
+        }
+
+        .service-node.compliance {
+            top: 20%;
+            left: 30%;
+        }
+
+        .service-node.cybersecurity {
+            bottom: 20%;
+            left: 30%;
+        }
+
+        .service-node.redteam {
+            bottom: 20%;
+            right: 30%;
+        }
+
+        /* Label Positioning */
+        .service-node.governance .service-node-label {
+            top: -40px;
+            right: -30px;
+        }
+
+        .service-node.compliance .service-node-label {
+            top: -40px;
+            left: -30px;
+        }
+
+        .service-node.cybersecurity .service-node-label {
+            bottom: -40px;
+            left: -50px;
+        }
+
+        .service-node.redteam .service-node-label {
+            bottom: -40px;
+            right: -30px;
+        }
+
+        /* Service Dropdown Menus */
+        .service-dropdown {
+            position: absolute;
+            width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            background-color: #ffffff;
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(148, 16, 188, 0.2);
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        /* Dropdown Positions - Adjusted to stay on screen */
+        .service-node.governance .service-dropdown {
+            top: 0;
+            left: 100%;
+            margin-left: 15px;
+            transform: translateY(-20%);
+        }
+
+        .service-node.compliance .service-dropdown {
+            top: 0;
+            right: 100%;
+            margin-right: 15px;
+            transform: translateY(-20%);
+        }
+
+        .service-node.cybersecurity .service-dropdown {
+            bottom: 0;
+            right: 100%;
+            margin-right: 15px;
+            transform: translateY(20%);
+        }
+
+        .service-node.redteam .service-dropdown {
+            bottom: 0;
+            left: 100%;
+            margin-left: 15px;
+            transform: translateY(20%);
+        }
+
+        .service-node:hover .service-dropdown {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Service Items */
+        .service-item {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background-color: rgba(148, 16, 188, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-item:hover {
+            border-left-color: #9410bc;
+            transform: translateX(4px);
+            background-color: rgba(148, 16, 188, 0.1);
+        }
+
+        .service-name {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #440955;
+            text-align: center;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-add {
+            background-color: #9410bc;
+            color: #ffffff;
+        }
+
+        .btn-add:hover {
+            box-shadow: 0 0 10px rgba(148, 16, 188, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-read {
+            background-color: #440955;
+            color: #ffffff;
+        }
+
+        .btn-read:hover {
+            box-shadow: 0 0 10px rgba(68, 9, 85, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Connector Styles */
+        .connector {
+            position: absolute;
+            background: none;
+            border-top: 2px dashed #9410bc;
+            opacity: 0.7;
+            z-index: 5;
+            transform-origin: left center;
+        }
+
+        /* Mobile Toggle Design */
+        .toggle-design {
+            display: none;
+        }
+
+        .service-category {
+            margin-bottom: 1rem;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            color: #440955;
+            font-weight: 600;
+            cursor: pointer;
+            border-left: 4px solid #9410bc;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            background-color: rgba(148, 16, 188, 0.1);
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.5);
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+            width: 20px;
+            height: 20px;
+            color: #9410bc;
+        }
+
+        .service-category.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(148, 16, 188, 0.03);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .service-category.active .category-content {
+            max-height: 500px;
+        }
+
+        .mobile-service-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(148, 16, 188, 0.2);
+        }
+
+        .mobile-service-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-service-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .mobile-service-description {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background-color: rgba(148, 16, 188, 0.05);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            display: none;
+            color: #000000;
+        }
+
+        .mobile-service-item.expanded .mobile-service-description {
+            display: block;
+        }
+
+        /* Content Section */
+        .content-section {
+            margin-top: 4rem;
+            padding: 1rem;
+        }
+
+        .content-section > div {
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .content-section > div.active {
+            display: block;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            color: #9410bc;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+
+        .content-section ul {
+            list-style-position: inside;
+            margin-top: 1rem;
+            padding-left: 1.25rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            color: #000000;
+        }
+
+        /* Cart Sidebar */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: #ffffff;
+            backdrop-filter: blur(16px);
+            padding: 1.5rem;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            transform: translateX(100%);
+            z-index: 51;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(148, 16, 188, 0.2);
+        }
+
+        .cart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #440955;
+        }
+
+        .close-btn {
+            color: #9410bc;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            margin: 1rem 0;
+            min-height: 200px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666666;
+            margin: 2rem 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(148, 16, 188, 0.1);
+            color: #000000;
+        }
+
+        .remove-btn {
+            color: #440955;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #9410bc;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.5);
+            transform: translateY(-4px);
+        }
+
+        /* Form Modal */
+        .form-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background-color: rgba(68, 9, 85, 0.95);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            display: none;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            backdrop-filter: blur(16px);
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #440955;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            color: #000000;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.625rem;
+            background-color: #f9f9f9;
+            border: 1px solid rgba(148, 16, 188, 0.2);
+            border-radius: 4px;
+            color: #000000;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #9410bc;
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.5);
+        }
+
+        .selected-services {
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .selected-service {
+            padding: 0.25rem 0;
+            color: #000000;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .back-btn {
+            padding: 0.75rem;
+            border: 1px solid #9410bc;
+            color: #9410bc;
+            background-color: transparent;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(148, 16, 188, 0.1);
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.5);
+        }
+
+        .submit-btn {
+            padding: 0.75rem;
+            background-color: #9410bc;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 15px rgba(148, 16, 188, 0.5);
+            transform: translateY(-4px);
+        }
+
+        /* Cart Button */
+        .cart-btn-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 40;
+        }
+
+        .cart-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            color: white;
+            background-color: #9410bc;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(148, 16, 188, 0.3);
+        }
+
+        .cart-btn:hover {
+            background-color: #440955;
+            box-shadow: 0 6px 15px rgba(148, 16, 188, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .cart-btn p {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .cart-btn i {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .cart-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: #9410bc;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .services-radial {
+                display: none;
+            }
+
+            .toggle-design {
+                display: block;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            /* Hide content section on mobile */
+            .content-section {
+                display: none;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .form-actions {
+                flex-direction: row;
+            }
+
+            .back-btn, .submit-btn {
+                flex: 1;
+            }
+        }
+
+        /* Ensure dropdowns stay on screen */
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .service-node.governance .service-dropdown,
+            .service-node.redteam .service-dropdown {
+                left: auto;
+                right: 100%;
+                margin-left: 0;
+                margin-right: 15px;
+            }
+        }
+    </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<section id="Our-Core-Services">
+        <div class="container">
+           <div class="container section-title" data-aos="fade-up" id="Our-Core-Services">
+      <span>Our Core Scope</span>
+      <h2>Our Core Scope</h2>
     </div><!-- End Section Title -->
-    <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section">
 
-      <div class="container">
+            <!-- Desktop View - Enhanced Radial Services -->
+            <div class="services-radial">
+                <!-- Hexagon Background -->
+                <div class="hexagon-bg"></div>
+                
+                <!-- Center Logo -->
+                <div class="center-logo-container">
+                    <img src="assets/img/Infinite-Citadels-logo.png" alt="Center Logo" class="center-logo">
+                </div>
 
-        <div class="row gy-4">
+                <!-- Governance Node -->
+                <div class="service-node governance">
+                    <div class="service-node-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <span class="service-node-label">Governance</span>
+                    <div class="service-dropdown">
+                        <!-- VCISO Service -->
+                        <div class="service-item">
+                            <span class="service-name">VCISO</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="vciso" data-category="governance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="governance-vciso">Read More</button>
+                            </div>
+                        </div>
+                        <!-- VDPO Service -->
+                        <div class="service-item">
+                            <span class="service-name">VDPO Data Privacy Officer</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="vdpo" data-category="governance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="governance-vdpo">Read More</button>
+                            </div>
+                        </div>
+                        <!-- VMP Service -->
+                        <div class="service-item">
+                            <span class="service-name">Vulnerability Management Program</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="vmp" data-category="governance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="governance-vmp">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-clouds"></i></div>
-              <h4><a href="#Governance-item" class="bi bi-cloud-lock">Governance</a></h4>
-              <p>Our Governance That Keeps Risks in Check and Growth on Track.</p>
+                <!-- Compliance Node -->
+                <div class="service-node compliance">
+                    <div class="service-node-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <span class="service-node-label">Compliance</span>
+                    <div class="service-dropdown">
+                        <!-- ADHICS Service -->
+                        <div class="service-item">
+                            <span class="service-name">ADHICS</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="adhics" data-category="compliance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="compliance-adhics">Read More</button>
+                            </div>
+                        </div>
+                        <!-- ISO Service -->
+                        <div class="service-item">
+                            <span class="service-name">ISO</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="iso" data-category="compliance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="compliance-iso">Read More</button>
+                            </div>
+                        </div>
+                        <!-- NESA Service -->
+                        <div class="service-item">
+                            <span class="service-name">NESA</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="nesa" data-category="compliance">Add to Cart</button>
+                                <button class="btn btn-read" data-target="compliance-nesa">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cybersecurity Node -->
+                <div class="service-node cybersecurity">
+                    <div class="service-node-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <span class="service-node-label">Cyber Security</span>
+                    <div class="service-dropdown">
+                        <!-- Web App Service -->
+                        <div class="service-item">
+                            <span class="service-name">Web Application</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="web-app" data-category="cybersecurity">Add to Cart</button>
+                                <button class="btn btn-read" data-target="cybersecurity-web">Read More</button>
+                            </div>
+                        </div>
+                        <!-- VAPT Service -->
+                        <div class="service-item">
+                            <span class="service-name">Vulnerability Assessment & Penetration Testing</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="vapt" data-category="cybersecurity">Add to Cart</button>
+                                <button class="btn btn-read" data-target="cybersecurity-vapt">Read More</button>
+                            </div>
+                        </div>
+                        <!-- Mobile Service -->
+                        <div class="service-item">
+                            <span class="service-name">Mobile (iOS & Android)</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="mobile" data-category="cybersecurity">Add to Cart</button>
+                                <button class="btn btn-read" data-target="cybersecurity-mobile">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red Team Node -->
+                <div class="service-node redteam">
+                    <div class="service-node-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <span class="service-node-label">Red Team</span>
+                    <div class="service-dropdown">
+                        <!-- Physical Security Service -->
+                        <div class="service-item">
+                            <span class="service-name">Physical Security Bypass</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="physical" data-category="redteam">Add to Cart</button>
+                                <button class="btn btn-read" data-target="redteam-physical">Read More</button>
+                            </div>
+                        </div>
+                        <!-- Phishing Service -->
+                        <div class="service-item">
+                            <span class="service-name">Phishing Simulation</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="phishing" data-category="redteam">Add to Cart</button>
+                                <button class="btn btn-read" data-target="redteam-phishing">Read More</button>
+                            </div>
+                        </div>
+                        <!-- Wifi Service -->
+                        <div class="service-item">
+                            <span class="service-name">Wifi Security Assessment</span>
+                            <div class="service-actions">
+                                <button class="btn btn-add" data-service="wifi" data-category="redteam">Add to Cart</button>
+                                <button class="btn btn-read" data-target="redteam-wifi">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div><!-- End Service Item -->
 
-          <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-shield-lock"></i></div>
-              <h4><a href="#Compliance-item" class="stretched-link">Compliance</a></h4>
-              <p>Compliance Without Complexity—Governance Done Right.</p>
-            </div>
-          </div><!-- End Service Item -->
+            <!-- Mobile & Tablet View - Toggle Design (Unchanged) -->
+            <div class="toggle-design">
+                <!-- Governance Category -->
+                <div class="service-category" data-category="governance">
+                    <div class="category-header">
+                        <span>Governance</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="category-content">
+                        <!-- VCISO Service -->
+                        <div class="mobile-service-item" data-service="vciso">
+                            <div class="mobile-service-header">
+                                <span class="service-name">VCISO</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="vciso" data-category="governance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Virtual Chief Information Security Officer (vCISO) provides executive-level cybersecurity leadership on a part-time or as-needed basis. Perfect for organizations that need strategic security guidance without the full-time executive cost.
+                            </div>
+                        </div>
+                        <!-- VDPO Service -->
+                        <div class="mobile-service-item" data-service="vdpo">
+                            <div class="mobile-service-header">
+                                <span class="service-name">VDPO Data Privacy Officer</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="vdpo" data-category="governance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Virtual Data Protection Officer helps organizations comply with data privacy regulations like GDPR. Provides expert guidance on data protection strategies and compliance requirements.
+                            </div>
+                        </div>
+                        <!-- VMP Service -->
+                        <div class="mobile-service-item" data-service="vmp">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Vulnerability Management Program</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="vmp" data-category="governance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Comprehensive program to identify, classify, remediate, and mitigate vulnerabilities in your IT infrastructure. Includes regular scanning, risk assessment, and remediation planning.
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="icon"><i class="bi bi-flag"></i></div>
-              <h4><a href="#Cyber-Security-Service" class="stretched-link">Cyber Security Service</a></h4>
-              <p>Stay Ahead of Cybercriminals – Before They Get Ahead of You.</p>
+                <!-- Compliance Category -->
+                <div class="service-category" data-category="compliance">
+                    <div class="category-header">
+                        <span>Compliance</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="category-content">
+                        <!-- ADHICS Service -->
+                        <div class="mobile-service-item" data-service="adhics">
+                            <div class="mobile-service-header">
+                                <span class="service-name">ADHICS</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="adhics" data-category="compliance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Abu Dhabi Healthcare Information and Cyber Security Standard compliance services. We help healthcare providers meet the stringent cybersecurity requirements for operating in Abu Dhabi.
+                            </div>
+                        </div>
+                        <!-- ISO Service -->
+                        <div class="mobile-service-item" data-service="iso">
+                            <div class="mobile-service-header">
+                                <span class="service-name">ISO</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="iso" data-category="compliance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                ISO 27001 certification services. We guide organizations through the entire process of implementing an Information Security Management System (ISMS) and achieving certification.
+                            </div>
+                        </div>
+                        <!-- NESA Service -->
+                        <div class="mobile-service-item" data-service="nesa">
+                            <div class="mobile-service-header">
+                                <span class="service-name">NESA</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="nesa" data-category="compliance">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                National Electronic Security Authority compliance services for UAE organizations. We ensure your systems meet the UAE's national cybersecurity standards and requirements.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cybersecurity Category -->
+                <div class="service-category" data-category="cybersecurity">
+                    <div class="category-header">
+                        <span>Cyber Security Service</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="category-content">
+                        <!-- Web App Service -->
+                        <div class="mobile-service-item" data-service="web-app">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Web Application</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="web-app" data-category="cybersecurity">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Comprehensive security testing for web applications to identify vulnerabilities like SQL injection, XSS, CSRF, and other OWASP Top 10 risks. Includes detailed remediation guidance.
+                            </div>
+                        </div>
+                        <!-- VAPT Service -->
+                        <div class="mobile-service-item" data-service="vapt">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Vulnerability Assessment & Penetration Testing</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="vapt" data-category="cybersecurity">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Combined vulnerability scanning and ethical hacking services to identify security weaknesses in your network, systems, and applications before attackers can exploit them.
+                            </div>
+                        </div>
+                        <!-- Mobile Service -->
+                        <div class="mobile-service-item" data-service="mobile">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Mobile (iOS & Android)</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="mobile" data-category="cybersecurity">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Security testing for mobile applications on both iOS and Android platforms. We assess for data leakage, insecure storage, weak encryption, and other mobile-specific vulnerabilities.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red Team Category -->
+                <div class="service-category" data-category="redteam">
+                    <div class="category-header">
+                        <span>Red Team</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="category-content">
+                        <!-- Physical Security Service -->
+                        <div class="mobile-service-item" data-service="physical">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Physical Security Bypass</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="physical" data-category="redteam">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Simulated physical penetration testing to evaluate your facilities' security controls. Our experts attempt to gain unauthorized access to your premises using social engineering and physical bypass techniques.
+                            </div>
+                        </div>
+                        <!-- Phishing Service -->
+                        <div class="mobile-service-item" data-service="phishing">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Phishing Simulation</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="phishing" data-category="redteam">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Controlled phishing campaigns to test employee awareness and susceptibility to social engineering attacks. Includes detailed reporting and training recommendations.
+                            </div>
+                        </div>
+                        <!-- Wifi Service -->
+                        <div class="mobile-service-item" data-service="wifi">
+                            <div class="mobile-service-header">
+                                <span class="service-name">Wifi Security Assessment</span>
+                                <div class="mobile-service-actions">
+                                    <button class="btn btn-add" data-service="wifi" data-category="redteam">Add to Cart</button>
+                                    <button class="btn btn-read mobile-read-more">Read More</button>
+                                </div>
+                            </div>
+                            <div class="mobile-service-description">
+                                Evaluation of your wireless network security, testing for weak encryption, rogue access points, and other vulnerabilities that could allow unauthorized network access.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-          </div><!-- End Service Item -->
-          <div class="col-lg-6 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <div class="icon"><i  class="bi bi-person-badge"></i></div>
-              <h4><a href="#Red-Team" class="stretched-link">Red Team</a></h4>
-              <p>Hack Yourself First – Or Wait for the Breach.</p>
+            <!-- Content Section for Detailed Service Information - Only visible on Desktop -->
+            <div class="content-section">
+                <!-- Governance - VCISO -->
+                <div id="governance-vciso">
+                    <h3>Governance - VCISO</h3>
+                    <p>
+                        Virtual Chief Information Security Officer (vCISO) provides executive-level cybersecurity leadership on a part-time or as-needed basis. Perfect for organizations that need strategic security guidance without the full-time executive cost.
+                    </p>
+                    <p>
+                        Our VCISO service is designed to help organizations improve their security posture without the overhead of a full-time security team. We provide tailored solutions to meet your specific needs and compliance requirements.
+                    </p>
+                    <ul>
+                        <li>Comprehensive security assessments and gap analysis</li>
+                        <li>Strategic planning and roadmap development</li>
+                        <li>Policy and procedure development</li>
+                        <li>Security awareness training and workshops</li>
+                        <li>Incident response planning and simulation</li>
+                    </ul>
+                </div>
+
+                <!-- Governance - VDPO -->
+                <div id="governance-vdpo">
+                    <h3>Governance - VDPO Data Privacy Officer</h3>
+                    <p>
+                        Virtual Data Protection Officer helps organizations comply with data privacy regulations like GDPR. Provides expert guidance on data protection strategies and compliance requirements.
+                    </p>
+                    <p>
+                        Our VDPO Data Privacy Officer service is designed to help organizations improve their security posture without the overhead of a full-time security team. We provide tailored solutions to meet your specific needs and compliance requirements.
+                    </p>
+                    <ul>
+                        <li>Comprehensive privacy assessments and gap analysis</li>
+                        <li>Data protection strategy development</li>
+                        <li>Privacy policy and procedure development</li>
+                        <li>Data subject rights management</li>
+                        <li>Incident response planning for data breaches</li>
+                    </ul>
+                </div>
+
+                <!-- Other content sections remain the same -->
+                <!-- ... -->
             </div>
-          </div>
         </div>
 
-      </div>
-
-    </section><!-- /Featured Services Section -->
-  
-   <!-- Governance Section -->
-<section id="Governance-item" class="services section light-background">
-
-  <!-- Governance  -->
-  <div class="container section-title" data-aos="fade-up">
-    <span>Governance</span>
-    <h2>Governance</h2>
-    <p>Your virtual shield against cyber threats, compliance risks, and breaches.</p>
-  </div><!-- End Section Title -->
-  
-  <div class="container">
-    <div class="row gy-4">
-
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-shield-lock"></i> <!-- Shield Lock Icon for VCISO -->
-          </div>
-          <h3>VCISO</h3>
-          
+        <!-- Cart Button -->
+        <div class="cart-btn-container">
+            <button class="cart-btn" id="cartBtn">
+                <p>View Cart</p>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </button>
         </div>
-      </div><!-- End Service Item -->
 
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-person-check"></i> <!-- Person Check Icon for VDPO -->
-          </div>
-          <a href="" class="stretched-link">
-            <h3>VDPO Data Privacy Officer</h3>
-          </a>
-          
+        <!-- Cart Sidebar -->
+        <div class="overlay" id="cartOverlay">
+            <div class="cart-sidebar" id="cartSidebar">
+                <div class="cart-header">
+                    <h3 class="cart-title">Selected Services</h3>
+                    <button class="close-btn" id="closeCartBtn">×</button>
+                </div>
+                <div class="cart-items" id="cartItems">
+                    <p class="cart-empty" id="cartEmpty">Your cart is empty</p>
+                    <!-- Cart items will be added here dynamically -->
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">Check Charges</button>
+            </div>
         </div>
-      </div><!-- End Service Item -->
 
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-bug"></i> <!-- Bug Icon for Vulnerability Management -->
-          </div>
-          <a href="" class="stretched-link">
-            <h3>Vulnerability Management Program</h3>
-          </a>
-          
+        <!-- Form Modal -->
+        <div class="form-modal" id="formModal">
+            <div class="modal-content">
+                <h3 class="form-title">Request Service Quote</h3>
+                <form id="quoteForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Selected Services</label>
+                        <div class="selected-services" id="selectedServices">
+                            <!-- Selected services will be added here dynamically -->
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="back-btn" id="backToCartBtn">Back to Services</button>
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div><!-- End Service Item -->
+    </section>
 
-    </div>
-  </div>
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Service data
+            const services = {
+                governance: {
+                    vciso: {
+                        name: 'VCISO',
+                        description: 'Virtual Chief Information Security Officer (vCISO) provides executive-level cybersecurity leadership on a part-time or as-needed basis.'
+                    },
+                    vdpo: {
+                        name: 'VDPO Data Privacy Officer',
+                        description: 'Virtual Data Protection Officer helps organizations comply with data privacy regulations like GDPR.'
+                    },
+                    vmp: {
+                        name: 'Vulnerability Management Program',
+                        description: 'Comprehensive program to identify, classify, remediate, and mitigate vulnerabilities in your IT infrastructure.'
+                    }
+                },
+                compliance: {
+                    adhics: {
+                        name: 'ADHICS',
+                        description: 'Abu Dhabi Healthcare Information and Cyber Security Standard compliance services.'
+                    },
+                    iso: {
+                        name: 'ISO',
+                        description: 'ISO 27001 certification services.'
+                    },
+                    nesa: {
+                        name: 'NESA',
+                        description: 'National Electronic Security Authority compliance services for UAE organizations.'
+                    }
+                },
+                cybersecurity: {
+                    'web-app': {
+                        name: 'Web Application',
+                        description: 'Comprehensive security testing for web applications to identify vulnerabilities like SQL injection, XSS, CSRF, and other OWASP Top 10 risks.'
+                    },
+                    vapt: {
+                        name: 'Vulnerability Assessment & Penetration Testing',
+                        description: 'Combined vulnerability scanning and ethical hacking services to identify security weaknesses in your network, systems, and applications.'
+                    },
+                    mobile: {
+                        name: 'Mobile (iOS & Android)',
+                        description: 'Security testing for mobile applications on both iOS and Android platforms.'
+                    }
+                },
+                redteam: {
+                    physical: {
+                        name: 'Physical Security Bypass',
+                        description: 'Simulated physical penetration testing to evaluate your facilities\' security controls.'
+                    },
+                    phishing: {
+                        name: 'Phishing Simulation',
+                        description: 'Controlled phishing campaigns to test employee awareness and susceptibility to social engineering attacks.'
+                    },
+                    wifi: {
+                        name: 'Wifi Security Assessment',
+                        description: 'Evaluation of your wireless network security, testing for weak encryption, rogue access points, and other vulnerabilities.'
+                    }
+                }
+            };
 
-</section><!-- /Governance Section -->
+            // State
+            let cart = [];
+            const isMobile = window.innerWidth <= 768;
 
+            // DOM Elements
+            const cartBtn = document.getElementById('cartBtn');
+            const cartOverlay = document.getElementById('cartOverlay');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const closeCartBtn = document.getElementById('closeCartBtn');
+            const cartItems = document.getElementById('cartItems');
+            const cartEmpty = document.getElementById('cartEmpty');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const formModal = document.getElementById('formModal');
+            const backToCartBtn = document.getElementById('backToCartBtn');
+            const selectedServices = document.getElementById('selectedServices');
+            const quoteForm = document.getElementById('quoteForm');
+            const mobileCategories = document.querySelectorAll('.service-category');
+            const mobileReadButtons = document.querySelectorAll('.mobile-read-more');
+            const addToCartButtons = document.querySelectorAll('.btn-add');
+            const readMoreButtons = document.querySelectorAll('.btn-read:not(.mobile-read-more)');
+            const contentSections = document.querySelectorAll('.content-section > div');
 
- <!-- Compliance Section -->
-<section id="Compliance-item" class="services section light-background">
+            // Functions
+            function toggleCart() {
+                cartOverlay.style.display = 'flex';
+                setTimeout(() => {
+                    cartSidebar.style.transform = 'translateX(0)';
+                }, 10);
+            }
 
-  <!-- Compliance Title -->
-  <div class="container section-title" data-aos="fade-up">
-      <span>Compliance</span>
-      <h2>Compliance</h2>
-      <p>Stop Worrying About Compliance.Start Excelling at It.</p>
-  </div><!-- End Section Title -->
+            function closeCart() {
+                cartSidebar.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    cartOverlay.style.display = 'none';
+                }, 300);
+            }
 
-  <div class="container">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 gy-3">
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-shield-lock"></i> 
-                  </div>
-                  <h3>ADHICS</h3>
-                  
-              </div>
-          </div><!-- End Item -->
+            function toggleFormModal(show) {
+                formModal.style.display = show ? 'flex' : 'none';
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-file-earmark-lock"></i> 
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>NESA</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function updateCart() {
+                const cartCount = document.querySelector('.cart-count');
+                if (cartCount) {
+                    cartCount.textContent = cart.length;
+                }
+                renderCartItems();
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-award"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>ISO</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function renderCartItems() {
+                if (cart.length === 0) {
+                    cartEmpty.style.display = 'block';
+                    return;
+                }
+                
+                cartEmpty.style.display = 'none';
+                cartItems.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    
+                    const serviceName = document.createElement('span');
+                    serviceName.textContent = item.name;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.textContent = '✕';
+                    removeBtn.dataset.id = item.id;
+                    removeBtn.dataset.category = item.category;
+                    
+                    cartItem.appendChild(serviceName);
+                    cartItem.appendChild(removeBtn);
+                    cartItems.appendChild(cartItem);
+                    
+                    removeBtn.addEventListener('click', function() {
+                        removeFromCart(this.dataset.category, this.dataset.id);
+                    });
+                });
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-credit-card-2-front"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>PCI DSS</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function renderSelectedServices() {
+                selectedServices.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const serviceElement = document.createElement('div');
+                    serviceElement.className = 'selected-service';
+                    serviceElement.textContent = item.name;
+                    selectedServices.appendChild(serviceElement);
+                });
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="500">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-person-lock"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Data Privacy (PDPL, GDPR)</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function addToCart(category, serviceId) {
+                // Check if already in cart
+                const exists = cart.some(item => item.id === serviceId && item.category === category);
+                
+                if (!exists) {
+                    const service = services[category][serviceId];
+                    cart.push({
+                        id: serviceId,
+                        category: category,
+                        name: service.name,
+                        description: service.description
+                    });
+                    
+                    updateCart();
+                }
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-hospital"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>HIPAA</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function removeFromCart(category, serviceId) {
+                cart = cart.filter(item => !(item.id === serviceId && item.category === category));
+                updateCart();
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="700">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-diagram-3"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Architecture Review</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function toggleCategory(categoryElement) {
+                const isActive = categoryElement.classList.contains('active');
+                
+                // Close all categories
+                mobileCategories.forEach(category => {
+                    category.classList.remove('active');
+                });
+                
+                if (!isActive) {
+                    categoryElement.classList.add('active');
+                }
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="800">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-shield-slash"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Firewall Rule Review</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function toggleServiceDescription(serviceItem) {
+                const isExpanded = serviceItem.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    serviceItem.classList.remove('expanded');
+                } else {
+                    serviceItem.classList.add('expanded');
+                }
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="900">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-exclamation-circle"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Risk Assessment</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
+            function showContentSection(targetId) {
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
 
-          <div class="col" data-aos="fade-up" data-aos-delay="1000">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-cloud-check"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Cloud Security Architecture Review</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-      </div>
-  </div>
-</section><!-- /Compliance Section -->
+            // Create connectors
+            function createConnectors() {
+                const servicesRadial = document.querySelector('.services-radial');
+                const centerLogo = document.querySelector('.center-logo-container');
+                const serviceNodes = document.querySelectorAll('.service-node');
+                
+                if (!servicesRadial || !centerLogo || serviceNodes.length === 0) return;
+                
+                // Remove existing connectors
+                document.querySelectorAll('.connector').forEach(conn => conn.remove());
+                
+                const centerRect = centerLogo.getBoundingClientRect();
+                const containerRect = servicesRadial.getBoundingClientRect();
+                
+                const centerX = centerRect.left + centerRect.width / 2 - containerRect.left;
+                const centerY = centerRect.top + centerRect.height / 2 - containerRect.top;
+                
+                serviceNodes.forEach(node => {
+                    const nodeRect = node.getBoundingClientRect();
+                    const nodeX = nodeRect.left + nodeRect.width / 2 - containerRect.left;
+                    const nodeY = nodeRect.top + nodeRect.height / 2 - containerRect.top;
+                    
+                    // Calculate distance and angle
+                    const dx = nodeX - centerX;
+                    const dy = nodeY - centerY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    
+                    // Create connector
+                    const connector = document.createElement('div');
+                    connector.className = 'connector';
+                    connector.style.width = `${distance}px`;
+                    connector.style.left = `${centerX}px`;
+                    connector.style.top = `${centerY}px`;
+                    connector.style.transform = `rotate(${angle}deg)`;
+                    
+                    servicesRadial.appendChild(connector);
+                });
+            }
 
-<!-- Cyber Security Service Section -->
-<section id="Cyber-Security-Service" class="services section light-background">
+            // Check if dropdowns are going off-screen and adjust
+            function adjustDropdowns() {
+                const serviceNodes = document.querySelectorAll('.service-node');
+                const windowWidth = window.innerWidth;
+                
+                serviceNodes.forEach(node => {
+                    const dropdown = node.querySelector('.service-dropdown');
+                    if (!dropdown) return;
+                    
+                    const nodeRect = node.getBoundingClientRect();
+                    const dropdownRect = dropdown.getBoundingClientRect();
+                    
+                    // Check if dropdown extends beyond right edge
+                    if (dropdownRect.right > windowWidth) {
+                        dropdown.style.left = 'auto';
+                        dropdown.style.right = '100%';
+                        dropdown.style.marginLeft = '0';
+                        dropdown.style.marginRight = '15px';
+                    }
+                    
+                    // Check if dropdown extends beyond left edge
+                    if (dropdownRect.left < 0) {
+                        dropdown.style.right = 'auto';
+                        dropdown.style.left = '100%';
+                        dropdown.style.marginRight = '0';
+                        dropdown.style.marginLeft = '15px';
+                    }
+                });
+            }
 
-  <!-- Cyber Security Service Title -->
-  <div class="container section-title" data-aos="fade-up">
-      <span>Cyber Security Service</span>
-      <h2>Cyber Security Service</h2>
-      <p>Stay Ahead of Cybercriminals – Before They Get Ahead of You</p>
-  </div><!-- End Title -->
+            // Event Listeners
+            if (cartBtn) {
+                cartBtn.addEventListener('click', toggleCart);
+            }
+            
+            if (closeCartBtn) {
+                closeCartBtn.addEventListener('click', closeCart);
+            }
+            
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', () => {
+                    if (cart.length === 0) {
+                        alert('Please add services to your cart first.');
+                        return;
+                    }
+                    
+                    closeCart();
+                    renderSelectedServices();
+                    toggleFormModal(true);
+                });
+            }
+            
+            if (backToCartBtn) {
+                backToCartBtn.addEventListener('click', () => {
+                    toggleFormModal(false);
+                    toggleCart();
+                });
+            }
+            
+            if (quoteForm) {
+                quoteForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Form submitted successfully! Our team will contact you soon.');
+                    toggleFormModal(false);
+                    cart = [];
+                    updateCart();
+                });
+            }
+            
+            // Mobile category toggles
+            mobileCategories.forEach(category => {
+                const header = category.querySelector('.category-header');
+                if (header) {
+                    header.addEventListener('click', () => {
+                        toggleCategory(category);
+                    });
+                }
+            });
+            
+            // Mobile read more buttons
+            mobileReadButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const serviceItem = btn.closest('.mobile-service-item');
+                    if (serviceItem) {
+                        toggleServiceDescription(serviceItem);
+                    }
+                });
+            });
+            
+            // Add to cart buttons
+            addToCartButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    addToCart(btn.dataset.category, btn.dataset.service);
+                });
+            });
 
-  <div class="container">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 gy-3">
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-globe"></i>
-                  </div>
-                  <h3>Web Application</h3>
-                  
-              </div>
-          </div><!-- End Item -->
+            // Desktop read more buttons (show content sections)
+            readMoreButtons.forEach(btn => {
+                if (btn.dataset.target) {
+                    btn.addEventListener('click', () => {
+                        showContentSection(btn.dataset.target);
+                    });
+                }
+            });
 
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-shield-lock"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Vulnerability Assessment & Penetration Testing</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-phone"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Mobile (iOS & Android)</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-wifi"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Wifi Security Assessment</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="500">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-code-slash"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>API Security</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-cloud-check"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Cloud Security Audit</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="700">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-router"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>iOT Device</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="800">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-eye-slash"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Dark Web Leakage Reconniances</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="900">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-database-lock"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Data Forensic</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="1000">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-people"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Social Engineering</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="1000">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-cloud"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Cloud Security Configuration Audit</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="1000">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-file-earmark-lock"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Security configuration Audit</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="1000">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i  class="bi bi-file-code"></i>
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Security Code Review</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-      </div>
-  </div>
-</section><!-- /Cyber Security Service Section -->
-
-<!--Red Team Section -->
-<section id="Red-Team" class="services section light-background">
-
-  <!-- Red Team Title -->
-  <div class="container section-title" data-aos="fade-up">
-      <span>Red Team</span>
-      <h2>Red Team</h2>
-      <p>Hack Yourself First – Or Wait for the Breach.</p>
-  </div><!-- End Title -->
-
-  <div class="container">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 gy-3">
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-door-closed"></i> <!-- Physical Security Bypass -->
-                  </div>
-                  <h3>Physical Security Bypass</h3>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-wifi"></i> <!-- Wifi Security Assessment -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Wifi Security Assessment</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-envelope-exclamation"></i> <!-- Phishing Simulation -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Phishing Simulation</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-diagram-3"></i> <!-- External to Internal Entry -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>External to Internal Entry of Infrastructure</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="500">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-server"></i> <!-- Active Directory Exploitation -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Active Directory Exploitation</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-cpu"></i> <!-- BIOS Exploitation -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>BIOS Exploitation</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="700">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-credit-card"></i> <!-- ATM Machine Security Audit -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>ATM Machine Security Audit</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-          <div class="col" data-aos="fade-up" data-aos-delay="800">
-              <div class="service-item position-relative">
-                  <div class="icon">
-                      <i class="bi bi-airplane"></i> <!-- Airport Security Bypass -->
-                  </div>
-                  <a href="" class="stretched-link">
-                      <h3>Airport Security Bypass</h3>
-                  </a>
-                  
-              </div>
-          </div><!-- End Item -->
-
-      </div>
-  </div>
-</section><!-- /Red Team Section -->
+            // Initialize
+            updateCart();
+            createConnectors();
+            adjustDropdowns();
+            
+            // Update connectors and check dropdowns on window resize
+            window.addEventListener('resize', () => {
+                createConnectors();
+                adjustDropdowns();
+            });
+            
+            // Close cart when clicking outside
+            cartOverlay.addEventListener('click', (e) => {
+                if (e.target === cartOverlay) {
+                    closeCart();
+                }
+            });
+            
+            // Close form modal when clicking outside
+            formModal.addEventListener('click', (e) => {
+                if (e.target === formModal) {
+                    toggleFormModal(false);
+                }
+            });
+        });
+    </script>
+</section>
     <!-- Our Certifications Section -->
 <section id="our-team-Credentials" class="certifications section light-background">
   <div class="container section-title" data-aos="fade-up">
